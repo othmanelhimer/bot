@@ -1,6 +1,5 @@
 urllib3==1.9.1
 telepot
-time
 youtube_dl
 pprint
 subprocess

@@ -52,5 +52,5 @@ TOKEN = '708166222:AAEQ_UtlGPWAjaWpu_AlnBSgrQ8937gKqPs'
 bot = telepot.DelegatorBot(TOKEN, [
     (per_inline_from_id(), create_open(InlineHandler, timeout=20)),
 ])
-print 'Listening...'
+print ('Listening...')
 bot.notifyOnMessage(run_forever=True)

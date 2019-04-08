@@ -7,6 +7,16 @@ import os
 import subprocess
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 from telepot.loop import MessageLoop
+from flask.ext.heroku import Heroku
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = "random string"
+heroku = Heroku(app)
+if __name__ == '__main__':
+    Base.metadata.create_all(engine)
+    global session
+    Session = sessionmaker(bind=engine)
+    session = Session()
 #funzione scarica musica
 def scarica_mp3(link,chat):
         ydl_opts = {'format': 'bestaudio/best',
@@ -19,7 +29,7 @@ def scarica_mp3(link,chat):
                 try:
                         ydl.download([link])
                         bot.sendMessage(chat,'Download in corso...')
-                        paths=[line[2:]for line in subprocess.check_output("find . -iname '*.mp3'", shell=True).splitli$                        paths=str(paths)
+                        paths=[line[2:]for line in subprocess.check_output("find . -iname '*.mp3'", shell=True).splitlines()]                        paths=str(paths)
                         print (paths[3:len(paths)-2])
                         audio=open(paths[3:len(paths)-2],'rb')
                         bot.sendAudio(chat, audio)
@@ -32,7 +42,7 @@ def scarica_mp4(link,chat):
                 try:
                         ydl.download([link])
                         bot.sendMessage(chat,'Download in corso...')
-                        pathsr=[line[2:]for line in subprocess.check_output("find . -iname '*.mkv'", shell=True).splitl$                        pathsr=str(pathsr)
+                        pathsr=[line[2:]for line in subprocess.check_output("find . -iname '*.mkv'", shell=True).splitlines()]                      pathsr=str(pathsr)
                         print (pathsr[3:len(pathsr)-2])
                         video=open(pathsr[3:len(pathsr)-2],'rb')
                         bot.sendVideo(chat, video)
@@ -65,6 +75,8 @@ bot=telepot.Bot(TOKEN)
 
 MessageLoop(bot, {'chat':handle}).run_as_thread()
 print('Listening ...')
+port = int(os.environ.get("PORT", 5000))  
 
+app.run(host='0.0.0.0', port=port)
 while 1:
     time.sleep(10)

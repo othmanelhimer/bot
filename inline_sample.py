@@ -47,11 +47,7 @@ class InlineHandler(telepot.helper.UserHandler):
         result_id, from_id, query_string = telepot.glance(msg, flavor='chosen_inline_result')
         print(self.id, ':', 'Chosen Inline Result:', result_id, from_id, query_string)
 
-TOKEN = sys.argv[1]
-
-if len(sys.argv)!=2:
-    print 'Usage: python inline_sample.py <bot token>'
-    exit(1)
+TOKEN = '708166222:AAEQ_UtlGPWAjaWpu_AlnBSgrQ8937gKqPs'
 
 bot = telepot.DelegatorBot(TOKEN, [
     (per_inline_from_id(), create_open(InlineHandler, timeout=20)),
